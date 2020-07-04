@@ -18,6 +18,17 @@
 (defn -main []
   (println "HELLO"))
 
+(defn player-page [{:keys [:session :params] :as req} ]
+  (println params)
+  (hp/html5
+  [:div
+       [:h2.text-2xl (:name params) ]
+        [:video {:width 640 :height 480 :controls true :playsinline true}
+         [:source {:src (str "/videos/" (:name params)) :type "video/mp4"}]
+         ]]
+     ))
+
+
 (defn video-page [{:keys [session :as req]}]
   (let [
         videos (map #(.getName %) (file-seq (clojure.java.io/file "/home/zamansky/gh/clojure-video-viewer/resources/public/videos")))
@@ -26,14 +37,13 @@
         ]
     (println videos)
     (hp/html5
+        [:head (hp/include-css "/css/main.css") ]
+        [:h1.bg-blue-400.text-4xl "Select Video to View"]
     [:div
      (for [v videos]
-       [:div
-       [:h2.text-2xl v]
-        [:video {:width 640 :height 480 :controls true}
-         [:source {:src (str "/videos/" v) :type "video/mp4"}]
-         ]]
-        )
+       [:div.bg-gray-200.p-2.m-2.hover:bg-green-600
+        [:a {:href (str "/video/" v)} v ]
+        ])
      ])
   ))
 
@@ -105,6 +115,7 @@
 
 (defroutes base-app
   (GET "/" [] index)
+  (GET "/video/:name" [name] player-page)
   (route/resources "/")
   (GET "/z" [] "<h1>ZZZZ</h1>")
   (POST "/authenticate" [] authenticate)
