@@ -46,7 +46,7 @@
    [:head (hp/include-css "/css/main.css") ]
    [:body
     [:div
-     [:h1.bg-blue-200.text-4xl "Enter Password"]
+     [:h1.bg-blue-200.text-4xl "Enter Password to Access Videos"]
      [:form {:action "/authenticate" :method "post"}
       [:input.bg-gray-400.p-2.m-2 {:type "password" :name "password"}]
       [:input.p-2.m-2.hover:bg-green-700.rounded {:type "submit" :value "Login"}]
