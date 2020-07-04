@@ -20,7 +20,7 @@
 
 (defn video-page [{:keys [session :as req]}]
   (let [
-        videos (map #(.getName %) (file-seq (clojure.java.io/file "/home/zamansky/Sync/vv/resources/public/videos")))
+        videos (map #(.getName %) (file-seq (clojure.java.io/file "/home/zamansky/gh/clojure-video-viewer/resources/public/videos")))
         videos (drop 1 videos)
 
         ]
